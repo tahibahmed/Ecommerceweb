@@ -1,0 +1,40 @@
+.from-Wrapper {
+    margin-top: 50px;
+}
+.formContent {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 40%;
+    margin: 0 auto;
+    background-color: darkgray;
+    height: 380px;
+    border-radius: 10px;
+    padding-top: 80px;
+}
+.formContent input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px; 
+}
+.heading{
+    font-size: 20px;
+    font-family: Roboto, sans-serif;
+    font-style: italic;
+}
+.loginBtn {
+    width: 70%;
+    margin: 20px auto;
+    padding: 5px 0px;
+    font-size: 18px;
+    font-family: Poppins, sans-serif;
+    background: #0c7ce6 !important;
+    color: #fff;
+    border-radius: 5px;
+}
+
+
+form {
+    margin-top: 20px;
+}
