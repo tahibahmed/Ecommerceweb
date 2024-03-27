@@ -1,72 +1,109 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import { MdSearch, MdShoppingBag } from "react-icons/md";
-
+import logo from "../../assets/images/logo-Jm4BVSCI.png";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { MdClose } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import Navlinks from "./Navlinks";
 
 const Header = () => {
-    return (
-        <div className="shadow-md   bg-gray-100 duration-200 relative z-40">
-        {/* upper navbarD */}
-        <div className="bg-primary/40 py-2 ">
-          <div className="container flex justify-between items-center ">
-            <div className="">
-              <a href="#" className="font-bold text-2xl flex gap-2">
-                <img src={""} alt="" className="w-10" />
-              E-commerce
-              </a>
-            </div>
-            <div className="flex justify-between gap-3 items-center ">
-            <div>
-              <div className="group relative hidden sm:block">
-                <input
-                  type="search"
-                  placeholder="Search here"
-                  className="w-[200px] px-2 py-1 sm:w-[200px] group-hover:w-[300px] border-gray-300 rounded-full border transition-all duration-300  focus:border-1 focus:outline-none focus:border-primary "
-                />
-                <MdSearch className="text-gray-500 group-hover:text-primary absolute top-1/2 -translate-y-1/2 right-3" />
-              </div>
-            </div>
-            <button
-              onClick={() => alert("order")}
-              className="bg-blue-400 transition-all duration-200 items-center text-white py-1 px-4 gap-3 group flex rounded-full"
-            >
-              <span className=" group-hover:block hidden transition-all duration-200">
-                Cart
-              </span>
-              <MdShoppingBag className="text-2xl text-white drop-shadow-sm cursor-pointer" />
-            </button>
-             
-            <button
-              onClick={() => alert("order")}
-              className="bg-blue-400 transition-all duration-200 items-center text-white py-1 px-4 gap-3 group flex rounded-full"
-            >
-              <span className=" group-hover:block hidden transition-all duration-200">
-                Login
-              </span>
-              <FaUser className="text-xl text-white drop-shadow-sm cursor-pointer" />
-            </button>
+  const [open, setOpen] = useState(false);
+
+    const cardData = JSON.parse(localStorage.getItem("cartItems"));
+    console.log(cardData);
   
+
+  return (
+    <div className="bg-gray-100 shadow-md ">
+      <div className="container mx-auto py-2 ">
+        <div className="grid  grid-cols-12">
+          <div className="md:flex md:justify-end  hidden  col-span-7">
+            <Link href="#" className="font-bold text-2xl flex gap-5 ">
+              <span className="hidden md:block text-red-600"> E-COMMERCE</span>
+            </Link>
+          </div>
+          <div className=" flex  justify-end gap-10 items-center  col-span-12 md:col-span-5">
+            <Link to={"/login"}>
+              <FaUser className="text-gray-500 group-hover:text-primary text-2xl" />
+            </Link>
+
+            <div className="relative">
+              <MdShoppingBag
+                onClick={() => setOpen(!open)}
+                className="text-gray-500 group-hover:text-primary text-2xl"
+              />
+              <span className="absolute top-[-10px] right-[-30px] bg-black text-center text-white rounded-full px-2 p-1  ">
+                23
+              </span>
+            </div>
+
+            <div
+              className="text-3xl mx-5 z-[1] text-black md:hidden"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? (
+                <MdClose className="text-gray-600" />
+              ) : (
+                <GiHamburgerMenu className="text-gray-600" />
+              )}
             </div>
           </div>
         </div>
-        {/* down navbarD */}
-        <div>
-        <div class="flex  items-center justify-center  sm:justify-center py-4">
-         
-          <div class="sm:ml-6 sm:block">
-            <div class="flex space-x-24">
-              {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
-              <Link to="#" class=" text-black hover:bg-gray-700  hover:text-white rounded-md px-3 py-2 text-sm font-medium " aria-current="page">Home</Link>
-              <Link to="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium ">Team</Link>
-              <Link to="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium ">Projects</Link>
-              <Link to="#" class="text-black hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium ">Calendar</Link>
-            </div>
+        <div className="">
+          <div className="  justify-center md:flex   ">
+            <nav className="">
+              <div className="flex items-center font-medium justify-around">
+                <div className="z-50 p-5 md:w-auto w-full flex justify-between"></div>
+                <ul className="md:flex hidden uppercase items-center gap-8 font-[Poppins]">
+                  <li>
+                    <Link to="/" className="py-7 px-3 inline-block">
+                      Home
+                    </Link>
+                  </li>
+                  <Navlinks />
+                </ul>
+
+                {/* Mobile nav */}
+                <ul
+                  className={`
+      md:hidden bg-white fixed w-full top-0 overflow-y-auto bottom-0 py-24 pl-4
+      duration-500 ${open ? "left-0" : "left-[-100%]"}
+      `}
+                >
+                  <li>
+                    <Link to="/" className="py-7 px-3 inline-block">
+                      Home
+                    </Link>
+                  </li>
+                  <Navlinks />
+                </ul>
+              </div>
+            </nav>
           </div>
-        </div>
         </div>
       </div>
-    )
-}
+      <div
+        className={`fixed top-20 right-0 h-full w-64 bg-slate-200 shadow-lg z-10 overflow-y-auto transition-transform duration-300 transform ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
+        // className={` ${open ? "right-0" : " right-[-300px]"} bg-slate-300 w-48 h-screen  absolute top-20 z-10  transition-all duration-500  `}
+      >
+        <div>
+          {cardData.map((items) => (
+            <div>
+              <div> <img src={items.image} width={50} height={50} alt="" /></div>
+              <div>
+                <p>{items.title.slice(0,30)}...</p>
+                <p>{items.price}</p>
+              </div>
+             
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Header;
