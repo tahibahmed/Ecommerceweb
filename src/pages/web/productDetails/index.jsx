@@ -16,29 +16,45 @@ const ProductDetail = () => {
     img3: img2,
     img4: img4,
   });
+
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id } = useParams(null);
   console.log(id)
-  const { data, loading } = useSelector((state) => state.viewproducts);
-  console.log(data)
+  const { data } = useSelector((state) => state.viewproducts);
   const [products, setProduct] = useState(data);
+  const [loading, setLoading] = useState(true);
 
   const addTocartFunc = (products) => {
     dispatch(addToCart(products));
   };
 
-  useEffect(() => {
-    dispatch(viewProductdata(id));
-  }, dispatch);
-
-  const [activeImg, setActiveImage] = useState(data?.image);
+  const [activeImg, setActiveImage] = useState(null);
 
   const [amount, setAmount] = useState(1);
+  useEffect(() => {
+    if (id) {
+      dispatch(viewProductdata(id));
+    }
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+      setActiveImage(data?.image);
+    }, 1000);
+
+    // Clean up the timeout when the component unmounts or when the effect is run again
+    return () => clearTimeout(timeoutId);
+  }, [data]);
 
   return (
     <div className="flex flex-col container mx-auto justify-between lg:flex-row gap-16 lg:items-center">
       <div className="flex flex-col mt-5  gap-6 md:w-2/4">
-        <ImageMagnifier src={activeImg} width={500} height={500} />
+        {loading ? (
+          <div className="">Loading.....</div>
+        ) : (
+          <ImageMagnifier src={activeImg} width={500} height={500} />
+        )}
         {/* <img src={activeImg} alt="" className='w-full '/> */}
         <div className="flex flex-row justify-between h-24 ">
           <img

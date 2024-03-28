@@ -10,9 +10,7 @@ import Navlinks from "./Navlinks";
 const Header = () => {
   const [open, setOpen] = useState(false);
 
-    const cardData = JSON.parse(localStorage.getItem("cartItems"));
-    console.log(cardData);
-  
+  const cardData = JSON.parse(localStorage.getItem("cartItems"));
 
   return (
     <div className="bg-gray-100 shadow-md ">
@@ -34,7 +32,7 @@ const Header = () => {
                 className="text-gray-500 group-hover:text-primary text-2xl"
               />
               <span className="absolute top-[-10px] right-[-30px] bg-black text-center text-white rounded-full px-2 p-1  ">
-                23
+                {cardData.length}
               </span>
             </div>
 
@@ -67,10 +65,7 @@ const Header = () => {
                 {/* Mobile nav */}
                 <ul
                   className={`
-      md:hidden bg-white fixed w-full top-0 overflow-y-auto bottom-0 py-24 pl-4
-      duration-500 ${open ? "left-0" : "left-[-100%]"}
-      `}
-                >
+                      md:hidden bg-white fixed w-full top-0 overflow-y-auto bottom-0 py-24 pl-4 duration-500 ${open ? "left-0" : "left-[-100%]"} `}>
                   <li>
                     <Link to="/" className="py-7 px-3 inline-block">
                       Home
@@ -84,20 +79,22 @@ const Header = () => {
         </div>
       </div>
       <div
-        className={`fixed top-20 right-0 h-full w-64 bg-slate-200 shadow-lg z-10 overflow-y-auto transition-transform duration-300 transform ${
-          open ? "translate-x-0" : "translate-x-full"
+        className={`absolute top-20 right-0 h-full w-64 bg-slate-200 shadow-lg z-10 overflow-y-auto transition-transform duration-300 transform ${
+          open ? "translate-x-0" : "translate-x-full hidden"
         }`}
         // className={` ${open ? "right-0" : " right-[-300px]"} bg-slate-300 w-48 h-screen  absolute top-20 z-10  transition-all duration-500  `}
       >
         <div>
           {cardData.map((items) => (
-            <div>
-              <div> <img src={items.image} width={50} height={50} alt="" /></div>
+            <div className="p-4 my-4">
               <div>
-                <p>{items.title.slice(0,30)}...</p>
-                <p>{items.price}</p>
+                {" "}
+                <img src={items.image} width={50} height={50} alt="" />
               </div>
-             
+              <div>
+                <p>{items.title.slice(0, 30)}...</p>
+                <p>$ {items.price}</p>
+              </div>
             </div>
           ))}
         </div>

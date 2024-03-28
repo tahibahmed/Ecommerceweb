@@ -29,8 +29,8 @@ const ImageMagnifier = ({src, width, height, magnifierHeight = 200, magnifieWidt
           const { top, left } = elem.getBoundingClientRect();
 
           // calculate cursor position on the image
-          const x = e.pageX - left - window.pageXOffset;
-          const y = e.pageY - top - window.pageYOffset;
+          const x = e.pageX - left - window.scrollX;
+          const y = e.pageY - top - window.scrollY;
           setXY([x, y]);
         }}
         onMouseLeave={() => {

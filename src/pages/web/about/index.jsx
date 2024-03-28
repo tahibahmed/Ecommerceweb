@@ -7,7 +7,7 @@ const About = () => {
       <div>
         <p>FOR ALL YOUR FESTIVE NEEDS</p>
       </div>
-      <h1 className="text-bold text-2xl mt-4">About</h1>
+      <h1 className=" font-bold text-3xl mt-4">About</h1>
       <p className="text-gray-400 pt-4 ">
         We specialize in stylish, modern festive wear that will make you look
         and feel your best. Whether you're looking for something to wear to a
